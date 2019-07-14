@@ -48,7 +48,7 @@ export default class index extends Component {
             <View>
                 <TouchableOpacity onPress={() => this.setState({ isVisible: true })}><Text>Show panel</Text></TouchableOpacity>
                 <View testID='PanelWrapper' style={{ height: 400 }} >
-                    <Panel scrollRef={this.scrollRef} renderContent={this.renderContentPanel} onClose={() => this.setState({ isVisible: false })} isVisible={this.state.isVisible} />
+                    <Panel duration={1000} scrollRef={this.scrollRef} renderContent={this.renderContentPanel} onClose={() => this.setState({ isVisible: false })} isVisible={this.state.isVisible} />
                 </View>
             </View>
         )

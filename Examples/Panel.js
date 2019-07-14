@@ -23,15 +23,16 @@ export default class PanelSliding extends Component {
             isVisible: false,
             maxHeightScrollView: false
         }
+        this.durationUpDown = this.props.duration || 500
         this.scrollRef = React.createRef()
     }
     componentDidUpdate(preProps) {
         if (preProps.isVisible !== this.props.isVisible) {
             if (this.props.isVisible) {
                 //Animation up
-                runAnimation(this.top, 0, 300)
+                runAnimation(this.top, 0, this.durationUpDown)
             } else {
-                runAnimation(this.top, height,300,()=>{
+                runAnimation(this.top, height,this.durationUpDown,()=>{
                     this.animation.flattenOffset();
                     this.animation.y.setValue(0)
                 })
@@ -145,12 +146,12 @@ export default class PanelSliding extends Component {
                 if (this.lastTransalateY === 0) {
                     if (currentTranslateY > 100) {
                         this.animation.flattenOffset();
-                        runAnimation(this.animation.y, height / 2, 200, () => {
+                        runAnimation(this.animation.y, height / 2, this.durationUpDown, () => {
                             this.lastTransalateY = height / 2
                         })
                     } else {
                         this.animation.flattenOffset();
-                        runAnimation(this.animation.y, 0, 200, () => {
+                        runAnimation(this.animation.y, 0, this.durationUpDown, () => {
                             this.lastTransalateY = 0
                         })
                     }
@@ -158,13 +159,13 @@ export default class PanelSliding extends Component {
                     if (newOffset > 0) {
                         //move up
                         this.animation.flattenOffset();
-                        runAnimation(this.animation.y, 0, 200, () => {
+                        runAnimation(this.animation.y, 0, this.durationUpDown, () => {
                             this.lastTransalateY = 0
                         })
                     } else {
                         //Move down
                         this.animation.flattenOffset();
-                        runAnimation(this.animation.y, height / 2, 200, () => {
+                        runAnimation(this.animation.y, height / 2, this.durationUpDown, () => {
                             this.lastTransalateY = height / 2
                         })
                     }
@@ -236,6 +237,11 @@ export default class PanelSliding extends Component {
     }
 
 }
+PanelSliding.defaultProps = {
+    isVisible: false,
+    renderContent: ()=><Text>Default render content</Text>,
+    duration:500
+  };
 //List props
 /**
  * scroll_ref, isVisible
